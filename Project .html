@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div>
+    <div class="todo">
+        <input type="text" class="input" id="input">
+        <button class="button" id="button" onclick="clickButton()">Click</button>
+    </div>
+    <ul class="list" id="list">
+        
+        
+
+
+    </ul>
+    
+<script>
+    let input = document.getElementById("input");
+    let list = document.getElementById("list");
+    let minTextLength = 3;
+    let i = 1;
+
+function clickButton(){
+
+    let inputText = textFilter(input.value);
+
+    if(inputText){
+     showList(inputText);          
+    input.value="";}
+
+
+}
+
+
+function textFilter(x){
+
+    if(x){
+        if(x.length>=minTextLength){
+            return x;
+        }else{
+            alert("Minimum Text is 3!")
+            return false;
+        }
+
+    }else{
+        alert("Text is Empty!")
+        return false;
+    }
+
+
+}
+
+function showList(text){
+    list.innerHTML +=
+        `<li class="list-item" id="list-id${i}">
+            <button id="del-btn" onclick="deleteList(${i})">Delete</button>
+            <button id="edit-btn" onclick="editList(${i})">Edit</button>
+            <span  id="list-ite${i}" class="list-item">${text}</span>
+        </li>`
+    i++;
+}
+
+
+function deleteList(listId){
+
+    let current = document.getElementById(`list-id${listId}`);
+
+    let currentText = document.getElementById(`list-ite${listId}`).innerHTML;
+//currentText u deleteConfirm အထက်ကနေမွအလုပ်လုပ်တယ်//
+    let deleteConfirm = confirm (`Are you sure to delete '${currentText}' ?`); 
+    
+   if(deleteConfirm){
+       list.removeChild(current);
+  
+    }else{
+
+        console.log("Delete Cancel!!")
+    }
+
+}
+
+function editList(listId){
+
+    let current = document.getElementById(`list-ite${listId}`);
+
+    let editText = prompt("Say Something",current.innerHTML);
+
+    if(textFilter(editText)){
+
+    current.innerHTML = editText;
+
+    }
+}
+
+
+
+
+
+
+
+</script>
+
+
+
+    
+
+
+
+
+
+
+
+
+</div>    
+</body>
+</html>
